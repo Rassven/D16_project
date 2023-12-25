@@ -1,0 +1,35 @@
+{% extends 'base/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+My page (имя вкладки в браузере)
+
+{% load static %}
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template mypage.html</p>
+Сравнительная таблица (для отладки с моделью автора):
+<table style="text-align: center; height: 36px; background-color: #bbbbbb; color: #000000">
+ <tr style="background-color: #555555; color: #dddddd"><td style="width: 300px">Параметр \ пользователь</td><td style="width: 200px">As User</td><td  style="width: 200px">As Author</td></tr>
+ <tr style="background-color: #888888"><td>ID пользователя</td><td>"{{ user.id }}"</td><td>"{{ user.author.id }}"</td></tr>
+ <tr style="background-color: #666666"><td>Register</td><td>"{{ user.register }}"</td><td>"{{ user.author.register }}"</td></tr>
+ <tr style="background-color: #666666"><td>Общее определение</td><td>"{{ user }}"</td><td>"{{ user.author }}"</td></tr>
+ <tr style="background-color: #666666"><td>Адрес е-почты</td><td>"{{ user.email }}"</td><td>"{{ user.author.email }}"</td></tr>
+ <tr style="background-color: #666666"><td>Ник-имя</td><td>"{{ user.username }}"</td><td>"{{ user.author.username }}"</td></tr>
+ <tr style="background-color: #666666"><td>Код авторизации</td><td>"{{ user.auth_code }}"</td><td>"{{ user.author.auth_code }}"</td></tr>
+ <tr style="background-color: #666666"><td>Проверка прав (adboard.add_ad)</td><td>"{{ perms.adboard.add_ad }}"</td><td></td></tr>
+ <tr style="background-color: #666666"><td>Permissions (auth)</td><td>"{{ user.user_permissions }}"</td><td>"{{ user.author.user_permissions }}"</td></tr>
+ <tr style="background-color: #666666"><td>Permissions (?app)</td><td>"{{ user.app_permission }}"</td><td>"{{ user.author.app_permission }}"</td></tr>
+</table>
+<br>
+User permissions: "{{ user.user_permissions }}"
+User permissions: "{{ user.has_perm }}"
+User groups: "{{ user.groups }}"
+<br>
+<!-- <a href="/accounts/mypage"><img src="{% static 'img/Http_test.jpg' %}" alt="WTF?" title="изображение - ссылка"></a> -->
+
+<p style="color:#ff0000">End template welcome.html</p>
+{% endblock content %}

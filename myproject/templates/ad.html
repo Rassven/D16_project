@@ -1,0 +1,69 @@
+{% extends 'base/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Объявление #{{ ad.id }}
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template ad.html</p>
+Ad = "{{ ad }}" (из __str__ н.не нужно в шаблонах)
+<p>Test for User: name: '{{ user.username }}' user: '{{ user }}', author: '{{ ad.author }}' autor name: '{{ ad.author.username }}'</p>
+<p>Test for private fields: user.is_active '{{ user.is_active }}'</p>
+<!-- {% if ad.author.id == user.id %}
+It's your ad!
+{% else %}
+Not your ad.
+{% endif %} -->
+
+<table style="height: 36px; width: 80%; background-color: #333333; color: #888888; text-align: center;">
+    <tbody>
+    <tr>
+        <td>Ad Id</td>
+        <td>Title</td>
+        <td>Author</td>
+        <td>category</td>
+        <td>Creation date</td>
+        <td>last_edit_date</td>
+        <td>view_counter</td>
+        <td>reply_counter</td>
+        <td>Actions</td>
+    </tr>
+    <tr>
+        <td>{{ ad.id }}</td>
+        <td>{{ ad.title }}</td>
+        <td>{{ ad.author }}</td>
+        <td>{{ ad.category }}</td>
+        <td>{{ ad.creation_date|date:'Y-m-d / H:i:s' }}</td>
+        <td>{{ ad.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
+        <td>{{ ad.view_counter }}</td>
+        <td>{{ ad.reply_counter }}</td>
+        <td>
+            {% if perms.bboard.edit_ad %}
+            <a style="color: #00ff00" href="{{ad.id}}/update/">Edit</a>
+            {% endif %}
+            {% if perms.bboard.view_ad %}
+            <a style="color: #00ff00" href="{{ad.id}}">View (now)</a>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>Ad text: "{{ ad.text }}"</p>
+<p>Ad author (username): "{{ ad.author.username }}"</p>
+<p>Ad user: "{{ ad.author }}"</p>
+
+<table style="text-align: left; width: 100%; background-color: #000000">
+    <tr style="background-color: #222222">
+        <td style="width: 200px">Begin</td>
+        <td>Some text</td>
+        {% if ad.author.id != 1 %}<td style="width: 100px">IS!</td>{% endif %}
+        <td style="width: 100px">End</td>
+
+    </tr>
+</table>
+
+<p style="color:#ff0000">End template ad.html</p>
+{% endblock content %}

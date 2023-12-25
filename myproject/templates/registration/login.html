@@ -1,0 +1,18 @@
+{% extends 'base/default.html' %}
+
+{% block title %}
+Регистрация на сайте (имя вкладки в браузере)
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template login.html</p>
+
+<form method="post" action="{% url 'login' %}">  #'signup'
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+
+<p style="color:#ff0000">End template login.html</p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base/default.html' %}
+
+{% block title %}
+Rules page (имя вкладки в браузере)
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template rules.html</p>
+<p>На сайте можно: ...</p>
+<p>На сайте нужно: ...</p>
+<p>На сайте нельзя: ...</p>
+<p>Как пользоваться: ...</p>
+<a class="nav-link" style="color:#0000ff" href="{% url 'mypage' %}">My page</a>
+
+<p style="color:#ff0000">End template rules.html</p>
+{% endblock content %}

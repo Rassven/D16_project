@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title> {% block title %} {{ flatpage.title }} {% endblock title %} </title>
+    <script>
+    function digitalClock() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    //* добавление ведущих нулей */
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+    document.getElementById("id_clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+    setTimeout("digitalClock()", 1000);}
+    </script>
+    <style>
+    a:hover {background: #000000; padding: 5px; transition: 0.3s;}
+    </style>
+    {% load static %}
+</head>
+
+<body>
+{# как вариант, добавить (пример): {% include 'flatpages/contact_page.html' %} #}
+<style>body {background-color: #222222; color: #00bb00}</style>
+<!-- <style>body {background-color: #111111; color: #009900}</style> -->
+
+{% comment "Comment" %}
+    <p>ignore it</p>  НАСТОЯЩИЙ КОММЕНТ БЕЗ!!! ИСПОЛНЕНИЯ КОДА И ПРОЧЕЙ ДРЯНИ!
+{% endcomment %}
+
+<p>sign-in (войти = имя + пароль) / sign-up (зарегистрироваться имя + мыло)</p>
+<table style="width: 100%; height: 32px; text-align: center;">
+    <tbody>
+    <tr style="background-color: #333333; color: #888888">
+        <td style="color:#00ff00">User</td>
+        <td>Id: {{ user.id }}</td>
+        <td>Name: {{ user }}</td>
+        <td>Is active: {{ user.is_active }}</td>
+        <td>Authorized: {% if user.author.auth_code == None %}Done{% else %}Not{% endif %}</td>
+        <td>User groups:  {{ user.groups }}</td>
+        <td>User is staff: {{ user.is_staff }}</td>
+        <td>User is superuser: {{ user.is_superuser }}</td>
+        <td>User date joined: {{ user.date_joined }}</td>
+        <td>User last login: {{ user.last_login }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<table style="height: 64px; text-align: center">
+    <tbody>
+    <tr style="background-color: #333333; color: #888888">
+        <td style="width: 150px">User permissions:</td>
+        <td style="width: 100px">Ads</td>
+        <td style="width: 50px">
+            {% if perms.adboard.add_ad %}
+            <!-- <a style="color:#00ff00" href="/adboard/ad/add/">Add</a> -->
+            <a style="color:#00ff00" href="{% url 'ad_create' %}">Add</a>  <!-- переделать остальные ссылки! -->
+            {% else %}
+            <a style="color:#444444">Add</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.edit_ad %}
+            <a style="color:#00ff00">Edit</a>
+            {% else %}
+            <a style="color:#444444">Edit</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.delete_ad %}
+            <a style="color:#00ff00">Delete</a>
+            <!-- <a href="{% url 'ad_delete' ad.id %}">Удалить</a> -->
+            {% else %}
+            <a style="color:#444444">Delete</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.view_ad %}
+            <a style="color:#00ff00">View</a>
+            {% else %}
+            <a style="color:#444444">View</a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr style="background-color: #333333; color: #888888">
+        <td></td>
+        <td>Responses</td>
+        <td>{% if perms.adboard.add_response %}
+             <a style="color:#00ff00" href="/adboard/response/add/">Add</a>
+            {% else %}
+            <a style="color:#444444">Add</a>
+            {% endif %}</td>
+        <td>
+            {% if perms.adboard.edit_response %}
+            <a style="color:#00ff00">Edit</a>
+            {% else %}
+            <a style="color:#444444">Edit</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if perms.adboard.delete_response %}
+            <a style="color:#00ff00">Delete</a>
+            {% else %}
+            <a style="color:#444444">Delete</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if perms.adboard.view_response %}
+            <a style="color:#00ff00">View</a>
+            {% else %}
+            <a style="color:#444444">View</a>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table style="width: 100%">
+    <tbody>
+    <tr style="height: 36px; text-align: center; background-color: #333333; color: #888888">
+        <td style="width: 150px;">
+            {% if user.id == None %}
+            <a class="navbar-brand" style="color:#0000ff" href="/accounts/signup/">Signup</a>
+            <a class="navbar-brand" style="color:#0000ff" href="/accounts/login/">Login</a>
+            {% else %}
+            <a class="navbar-brand" style="color:#0000ff" href="/accounts/logout/" title="Завершить сессию {{user}}">Logout {{user}}</a>
+                {% endif %}
+            </td>
+            <td style="width: 100px; text-align: center;">
+                <a class="nav-link" style="color:#0000ff; hover:#ffffff" href="/admin/"
+                   title="Переход в админку (на время отладки, без [target]=blank (в новом окне)">Admin</a>
+            </td>
+            <!-- <td style="width: 100px; text-align: center; color:#ff0000">Rules !!!</td> -->
+            <td style="width: 120px; text-align: center;">User id: {{ user.id }}</td>
+            <td style="width: 200px; text-align: center;">User name: {{ user }}</td>
+            <td style="width: 180px; text-align: center;">User is active: {{ user.is_active }}</td>
+            <td style="text-align: center;">
+                Загружено
+                <script type="text/javascript">document.write(Date());</script>
+            </td>
+            <td style="width: 90px; text-align: center;">
+                <div id="id_clock"></div><script>digitalClock();</script>
+            </td>
+        </tr>
+        </tbody>
+</table>
+
+<table style="text-align: center; width: 100%; height: 36px">
+    <tbody>
+    <tr style="background-color: #555555; color: #dddddd">
+        <td style="width: 100px"><a style="color:#ff0000"; href="/adboard/rules">Rules!</a></td>
+        <td style="width: 150px">Available pages:</td>
+        {% if user.is_active %}
+        <td style="width: 100px; color: #00ff00">Available</td>
+        <td style="width: 100px"><a style="color:#00ff00" href="/accounts/mypage/" title="Страница с личной информацией {{user}}">My page</a></td>
+        <td style="width: 100px; color: #00ff00">My ads</td>
+        <td style="width: 100px; color: #00ff00">My replys</td>
+        <td style="width: 100px"><a style="color:#00ff00" href="/adboard/ads">Ads</a></td>
+        <td style="width: 100px"><a style="color:#00ff00" href="/adboard/responses">Responses</a></td>
+        {% else %}
+        <td style="width: 50px; color: #ff0000">None</td>
+        {% endif %}
+        <td style="width: 100px"><a style="color:#bbbbbb" href="/adboard/" title="Страница приветствия">Welcome</a></td>
+        <td></td>
+        <td style="width: 100px;"><input type=button value="Show Time" onclick="alert(new Date())"></td>
+    </tr>
+    </tbody>
+</table>
+
+    <p style="color:#ff0000">End Default page, begin FlatPage</p><hr><em>
+    {% block content %}
+    {{ flatpage.content }}
+    {% endblock content %}
+    </em><hr><p style="color:#ff0000">End FlatPage, begin Default page</p>
+
+
+<footer>My site footer (ну показал, а закрепить-то как?)</footer>
+</body>
+</html>

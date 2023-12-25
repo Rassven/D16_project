@@ -1,0 +1,32 @@
+{% extends 'base/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Welcome page (имя вкладки в браузере)
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template welcome.html</p>
+
+<p>Рады видеть вас на сайте ... MMORPG. Это специализированная доска объявлений.</p>
+<p>Объявления: Тема и текст (могут быть картинки, видео и другой контент).</p>
+<p>Пользователи могут отправлять отклики на объявления других пользователей (текстовые).</p>
+<p>Можно просмотреть отклики на свои объявления, фильтровать их по критериям, удалить или принять (при принятии отклика
+    пользователю, оставившему отклик, приходит уведомление на е-почту).</p>
+<p>Объявление должно быть определено в одну из категорий: Танки, Хилы, ДД, Торговцы, Гилдмастеры, Квестгиверы,
+    Кузнецы, Кожевники, Зельевары, Мастера заклинаний.</p>
+<p>Прочитайте правила <a href="/adboard/rules/">здесь</a></p>
+<h2>Сейчас объявлений: {{ ads.count }}</h2>
+<h2>Всего откликов: {{ responses.count }} (Упс. Модель response в данное View подключить нельзя, пока без неё)</h2>
+<button type="button" onclick="alert(document.referrer)">адрес предшествующей страницы</button>
+
+<p>
+{% if user.id == None %}
+    Вам сюда: <a class="nav-link" style="color:#00ff00" href="/accounts/login/">Register/Login</a>
+{% endif %}
+</p>
+
+<p style="color:#ff0000">End template welcome.html</p>
+{% endblock content %}

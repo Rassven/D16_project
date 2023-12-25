@@ -1,0 +1,78 @@
+{% extends 'base/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Ads (вкладка в браузере)
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template ads.html</p>
+<p>Все объявления (всего: {{ ads.count }} лжет со страничительством)</p>
+<p> Alter all (num/счетчик): {{ ads|length }}  Current page: {{ page_obj.number }} info paginator {{ paginator.num_pages }}</p>
+
+<hr>
+<form action="" method="get">
+            {% csrf_token %}
+            {{ filterset.form.as_p }}
+            <input type="submit" value="Найти" />
+</form>
+{% if user.is_active %}
+    {% if ads %}
+        <table style="height: 36px; width: 1200px; background-color: #333333; color: #888888; text-align: center;">
+           <tr style="text-align: center;">
+               <td>Индекс</td>
+               <td>Author</td>
+               <td>Title</td>
+               <td>Category</td>
+               <td>Pub_time</td>
+               <td>Editing time</td>
+               <td>Responses</td>
+               <td>Actions</td>
+           </tr>
+           {% for ad in ads %}
+           <tr style="text-align: center;">
+               <td>{{ ad.id }}</td>
+               <td>{{ ad.author }}</td>
+               <td>{{ ad.title|truncatechars:15 }}</td>
+               <td>{{ ad.category }}</td>
+               <td>{{ ad.creation_date|date:'Y-m-d / H:i:s' }}</td>
+               <td>{{ ad.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
+               <td>{{ ad.response_ad }}</td>
+               <td><a style="color: #00ff00" href="ad/{{ad.id}}">View</a></td>
+           </tr>
+           {% endfor %}
+        </table>
+    {% else %}
+       <h2>Пока нет объявлений.</h2>
+    {% endif %}
+
+{% else %}
+Страница доступна только авторизованным пользователям (хотя, в view вроде прописан permission (проверить!))
+{% endif %}
+
+{# страничительство #}
+{% if paginator.num_pages > 1 %}
+<h2 style="text-align: center">
+    pages<
+{% if page_obj.has_previous %}
+    <a href="?{% url_replace page=1 %}">1</a>
+    {% if page_obj.previous_page_number != 1 %}
+        ...<a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+    {% endif %}
+{% endif %}
+{{ page_obj.number }}
+{% if page_obj.has_next %}
+    <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+    {% if paginator.num_pages != page_obj.next_page_number %}
+        ...<a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+    {% endif %}
+{% endif %}
+></h2>
+{% else %}
+Без страничительства
+{% endif %}
+
+<p style="color:#ff0000">End template ads.html</p>
+{% endblock content %}

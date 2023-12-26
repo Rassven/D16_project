@@ -1,4 +1,3 @@
-from myproject.mconfig import config
 from django.db.models.signals import post_save
 # Еще сигналы (django.db.models.signals./ИМЯ/):
 # pre_save, post_save — вызываются до и после вызова save() метода модели;
@@ -11,10 +10,6 @@ from .models import *
 
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
-
-# @receiver(post_save, sender=Ad)
-# def ad_created(instance, **kwargs):
-#     print('Создано объявление', instance)
 
 
 @receiver(post_save, sender=Ad)
@@ -34,11 +29,11 @@ def ad_created(instance, created, **kwargs):
         f'В категории {instance.category}. Размещено: {instance.creation_date}<br><br>'
         f'Кратко: {instance.text[:30]}. <a href="http://127.0.0.1{instance.get_absolute_url()}">Ознакомиться</a>'
     )
-    # Ссылка из почты не работает (локальный сервер?)!!!
-    print('Sending emails...')
+    # Ссылка из почты не работает (локальный сервер?)!
+    # print('Sending emails...')
     for email in emails:
         print(email)
-        msg = EmailMultiAlternatives(subject, text_content, None, [config['ctrl_mail'], ])  # + email !
+        msg = EmailMultiAlternatives(subject, text_content, None, ['Rassven@yandex.ru', ])  # + email !
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
@@ -58,10 +53,10 @@ def ad_created(instance, created, **kwargs):
         f'Объявление: {instance.title} ({instance.author.username}) от {instance.creation_date}<br><br>'
         f'Кратко: {instance.text[:30]} Ознакомиться: http://127.0.0.1:8000{instance.get_absolute_url()}<br>'
     )
-    # Ссылка из почты не работает (локальный сервер?)!!!
+    # Ссылка из почты не работает (локальный сервер?)!
     print('Sending emails...')
     for email in emails:
         print(email)
-        msg = EmailMultiAlternatives(subject, text_content, None, [config['ctrl_mail'], ])  # + email !
+        msg = EmailMultiAlternatives(subject, text_content, None, ['Rassven@yandex.ru', ])  # + email !
         msg.attach_alternative(html_content, "text/html")
         msg.send()

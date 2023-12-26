@@ -9,9 +9,9 @@ Responses (вкладка в браузере)
 
 {% block content %}
 <p style="color:#ff0000">Begin template responses.html</p>
-<p>Все отклики
+<p>Все отклики (тупо все)
 (всего: {{ responses.count }})</p>
-<!-- Нету идеи как отклики выводить... Выбор способа в форме? -->
+<!-- Пока кучей... Или доступ к списку только из Объявлений? Выбор способов сортировки (и как...) в форме? -->
 
 {% if user.is_active %}
 <p>
@@ -35,10 +35,8 @@ Responses (вкладка в браузере)
                <td>Индекс</td>
                <td>Author</td>
                <td>Title</td>
-               <td>Category</td>
                <td>Pub_time</td>
                <td>Editing time</td>
-               <td>Responses</td>
                <td>Actions</td>
            </tr>
            {% for response in responses %}
@@ -47,10 +45,8 @@ Responses (вкладка в браузере)
                <td>{{ response.id }}</td>
                <td>{{ response.author }}</td>
                <td>{{ response.title|truncatechars:15 }}</td>
-               <td>{{ response.category }}</td>
                <td>{{ response.creation_date|date:'Y-m-d / H:i:s' }}</td>
                <td>{{ response.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
-               <td>{{ response.response_ad }}</td>
                <td><a href="{{response.id}}">View</a></td>
            </tr>
            {% endfor %}

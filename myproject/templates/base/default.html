@@ -55,7 +55,6 @@
         <td style="width: 100px">Ads</td>
         <td style="width: 50px">
             {% if perms.adboard.add_ad %}
-            <!-- <a style="color:#00ff00" href="/adboard/ad/add/">Add</a> -->
             <a style="color:#00ff00" href="{% url 'ad_create' %}">Add</a>  <!-- переделать остальные ссылки! -->
             {% else %}
             <a style="color:#444444">Add</a>
@@ -71,7 +70,7 @@
         <td style="width: 50px">
             {% if perms.adboard.delete_ad %}
             <a style="color:#00ff00">Delete</a>
-            <!-- <a href="{% url 'ad_delete' ad.id %}">Удалить</a> -->
+
             {% else %}
             <a style="color:#444444">Delete</a>
             {% endif %}
@@ -132,7 +131,7 @@
                 <a class="nav-link" style="color:#0000ff; hover:#ffffff" href="/admin/"
                    title="Переход в админку (на время отладки, без [target]=blank (в новом окне)">Admin</a>
             </td>
-            <!-- <td style="width: 100px; text-align: center; color:#ff0000">Rules !!!</td> -->
+
             <td style="width: 120px; text-align: center;">User id: {{ user.id }}</td>
             <td style="width: 200px; text-align: center;">User name: {{ user }}</td>
             <td style="width: 180px; text-align: center;">User is active: {{ user.is_active }}</td>
@@ -169,11 +168,11 @@
     </tbody>
 </table>
 
-    <p style="color:#ff0000">End Default page, begin FlatPage</p><hr><em>
+    <p style="color:#ff0000">End Default page, begin Template</p><hr><em>
     {% block content %}
     {{ flatpage.content }}
     {% endblock content %}
-    </em><hr><p style="color:#ff0000">End FlatPage, begin Default page</p>
+    </em><hr><p style="color:#ff0000">End Template, begin Default page</p>
 
 
 <footer>My site footer (ну показал, а закрепить-то как?)</footer>

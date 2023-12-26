@@ -4,11 +4,11 @@
 {% load custom_tags %}
 
 {% block title %}
-Ad Create (вкладка в браузере)
+Response Create (вкладка в браузере)
 {% endblock title %}
 
 {% block content %}
-<h1>Редактирование/создание Объявления</h1>
+<h1>Редактирование/создание Отклика</h1>
 <hr>
 {% if user.author.id %}
       <form action="" method="post">
@@ -18,7 +18,7 @@ Ad Create (вкладка в браузере)
       </form>
       <hr>
       <hr>
-      <a href='/'>К списку объявлений</a>
+      <a href='/'>К списку ??? откликов или на само объявление?</a>
 {% else %}<p style="color: red">Нет ID Автора.</p>
 {% if user.username == "Admin" %}
       <h2 style="color: red">Товарищ Администратор, пользуйся, пожалуйста, своей админ-панелью.</h2>{% endif %}

@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-# Приватные настройки вынесены в mconfig.py ("в комплект не входит", "в комплекте" файл _mconfig.py с пустыми полями)
-from .mconfig import config  # import my config (keys, passwords, settings, mail's, ...)
 # SuperUser name: Admin, SuperUser password: 1234
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = 'rk[m;w9fy7GJQ}=@,Zux(1SopU3~.]^q_e+sj5lcah{`NME$Pv%FWD4R-zHTKOtC20nLA)VBYibdg#X68I9K}v]pC1=aHsVEr[{'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -69,9 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # flatpages:
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',  # оно надо?
-    # для "allauth"
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
 
@@ -85,7 +81,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # нужно для "allauth"
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -93,7 +89,6 @@ TEMPLATES = [
     },
 ]
 
-# для "allauth"
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -127,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 
-TIME_ZONE = config['TIME_ZONE']
+TIME_ZONE = 'UTC'
 USE_TZ = True
 
 
@@ -146,32 +141,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGOUT_URL = "/accounts/logout/"
 # LOGOUT_URL = "/adboard/welcome"
-# LOGIN_URL = "/adboard/mypage"
+# LOGIN_URL = "/accounts/mypage"
 LOGIN_REDIRECT_URL = "/accounts/mypage"
 LOGOUT_REDIRECT_URL = "/"
 
 
-ACCOUNT_EMAIL_REQUIRED = config['ACCOUNT_EMAIL_REQUIRED']
-ACCOUNT_UNIQUE_EMAIL = config['ACCOUNT_UNIQUE_EMAIL']
-ACCOUNT_USERNAME_REQUIRED = config['ACCOUNT_USERNAME_REQUIRED']
-ACCOUNT_AUTHENTICATION_METHOD = config['ACCOUNT_AUTHENTICATION_METHOD']
-ACCOUNT_EMAIL_VERIFICATION = config['ACCOUNT_EMAIL_VERIFICATION']
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # активирует аккаунт сразу, как только мы перейдём по ссылке.
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = None  # Количество неудачных попыток входа в систему. 'None' - отключить ограничение.
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # секунд запрета на вход посте N неудачных попыток.
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'none',  # 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = None
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # вывод отправляемого в консоль (Terminal)
-# EMAIL_BACKEND =config['EMAIL_BACKEND']
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # вывод отправляемого в консоль
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = config['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
-EMAIL_USE_TLS = config['EMAIL_USE_TLS']
-EMAIL_USE_SSL = config['EMAIL_USE_SSL']
+EMAIL_HOST_USER = 'Rassven@yandex.ru'
+EMAIL_HOST_PASSWORD = 'hoqkaodwvyirsljm'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 EMAIL_SUBJECT_PREFIX = 'Ad Board: '  # EMAIL_SUBJECT_PREFIX = '[Django]'  # Префикс темы письма (managers & admins).
-DEFAULT_FROM_EMAIL = config['DEFAULT_FROM_EMAIL']  # Будет отображаться в поле «отправитель» у получателя письма.
-SERVER_EMAIL = config['SERVER_EMAIL']
-# MANAGERS = (config['MANAGERS'],)  # Не те менеджеры, что созданы под Админкой.
-ADMINS = (config['ADMINS'],)
+DEFAULT_FROM_EMAIL = 'Rassven@yandex.ru'
+SERVER_EMAIL = 'Rassven@yandex.ru'
+
+ADMINS = ['Rassven@yandex.ru', ]

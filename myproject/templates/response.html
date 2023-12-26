@@ -1,0 +1,56 @@
+{% extends 'base/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Отклик #{{ response.id }}
+{% endblock title %}
+
+{% block content %}
+<p style="color:#ff0000">Begin template response.html</p>
+response = "{{ response }}"
+
+<table style="height: 36px; width: 80%; background-color: #333333; color: #888888; text-align: center;">
+    <tbody>
+    <tr>
+        <td>Response Id</td>
+        <td>Text</td>
+        <td>Author</td>
+        <td>Creation date</td>
+        <td>last_edit_date</td>
+        <td>Actions</td>
+    </tr>
+    <tr>
+        <td>{{ response.id }}</td>
+        <td>{{ response.text }}</td>
+        <td>{{ response.author.username }}</td>
+        <td>{{ response.creation_date|date:'Y-m-d / H:i:s' }}</td>
+        <td>{{ response.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
+        <td>
+            {% if perms.bboard.edit_response %}
+            <a style="color: #00ff00" href="{{response.id}}/update/">Edit</a>
+            {% endif %}
+            {% if perms.bboard.view_response %}
+            <a style="color: #00ff00" href="{{response.id}}">View</a>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>Response text: "{{ response.text }}"</p>
+<p>Response author (username): "{{ response.author.username }}"</p>
+<p>Response author (model): "{{ response.author }}"</p>
+
+<table style="text-align: left; width: 100%; background-color: #000000">
+    <tr style="background-color: #222222">
+        <td style="width: 200px">Begin</td>
+        <td>Some text</td>
+        {% if response.author.id != 1 %}<td style="width: 100px">IS!</td>{% endif %}
+        <td style="width: 100px">End</td>
+
+    </tr>
+</table>
+
+<p style="color:#ff0000">End template response.html</p>
+{% endblock content %}

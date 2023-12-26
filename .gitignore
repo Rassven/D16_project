@@ -1,0 +1,8 @@
+/myproject/myproject/gen_key.py
+/myproject/myproject/mconfig.py
+/myproject/myproject/test_key.py
+/.git/**
+/.idea/**
+/venv/**
+/**/__pycache__/**
+/myproject/static/css/fe_styles._css

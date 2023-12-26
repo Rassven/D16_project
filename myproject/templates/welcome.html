@@ -19,12 +19,13 @@ Welcome page (имя вкладки в браузере)
     Кузнецы, Кожевники, Зельевары, Мастера заклинаний.</p>
 <p>Прочитайте правила <a href="/adboard/rules/">здесь</a></p>
 <h2>Сейчас объявлений: {{ ads.count }}</h2>
-<h2>Всего откликов: {{ responses.count }} (Упс. Модель response в данное View подключить нельзя, пока без неё)</h2>
+<h2>Всего откликов: {{ responses.count }} (Упс. Модель response в данное View подключить нельзя, но!! надо выдернуть
+    их через связи! Хотябы тупо все.)</h2>
 <button type="button" onclick="alert(document.referrer)">адрес предшествующей страницы</button>
 
 <p>
 {% if user.id == None %}
-    Вам сюда: <a class="nav-link" style="color:#00ff00" href="/accounts/login/">Register/Login</a>
+    Вам сюда: <a class="nav-link" style="color:#00ff00" href="/accounts/login/">Login</a>
 {% endif %}
 </p>
 

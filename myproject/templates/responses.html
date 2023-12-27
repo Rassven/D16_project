@@ -30,24 +30,24 @@ Responses (вкладка в браузере)
 </p>
 
     {% if responses %}
-        <table>
+        <table style="width: 80%">
            <tr style="text-align: center;">
                <td>Индекс</td>
-               <td>Author</td>
-               <td>Title</td>
-               <td>Pub_time</td>
-               <td>Editing time</td>
-               <td>Actions</td>
+               <td>Авторr</td>
+               <td>Текст</td>
+               <td>Создан</td>
+               <td>Отредактирован</td>
+               <td>Действия</td>
            </tr>
            {% for response in responses %}
             <!-- Если установлен флаг hidden (=True), то показывать только авторам объявления и отклика!!! -->
            <tr style="text-align: center;">
                <td>{{ response.id }}</td>
                <td>{{ response.author }}</td>
-               <td>{{ response.title|truncatechars:15 }}</td>
+               <td>{{ response.text|truncatechars:25 }}</td>
                <td>{{ response.creation_date|date:'Y-m-d / H:i:s' }}</td>
                <td>{{ response.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
-               <td><a href="{{response.id}}">View</a></td>
+               <td><a href="response/{{response.id}}">View</a></td>
            </tr>
            {% endfor %}
         </table>

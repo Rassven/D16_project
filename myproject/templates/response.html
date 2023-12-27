@@ -29,7 +29,7 @@ response = "{{ response }}"
         <td>{{ response.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
         <td>
             {% if perms.bboard.edit_response %}
-            <a style="color: #00ff00" href="{{response.id}}/update/">Edit</a>
+            <a style="color: #00ff00" href="{{response.id}}/edit/">Edit</a>
             {% endif %}
             {% if perms.bboard.view_response %}
             <a style="color: #00ff00" href="{{response.id}}">View</a>

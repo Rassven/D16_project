@@ -11,6 +11,74 @@ My page (имя вкладки в браузере)
 
 {% block content %}
 <p style="color:#ff0000">Begin template mypage.html</p>
+<table style="height: 64px; text-align: center">
+    <tbody>
+    <tr style="background-color: #333333; color: #888888">
+        <td style="width: 150px">User permissions:</td>
+        <td style="width: 100px">Ads</td>
+        <td style="width: 50px">
+            {% if perms.adboard.add_ad %}
+            <a style="color:#00ff00" href="{% url 'ad_create' %}">Add</a>  <!-- переделать остальные ссылки! -->
+            {% else %}
+            <a style="color:#444444">Add</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.edit_ad %}
+            <a style="color:#00ff00">Edit</a>
+            {% else %}
+            <a style="color:#444444">Edit</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.delete_ad %}
+            <a style="color:#00ff00">Delete</a>
+
+            {% else %}
+            <a style="color:#444444">Delete</a>
+            {% endif %}
+        </td>
+        <td style="width: 50px">
+            {% if perms.adboard.view_ad %}
+            <a style="color:#00ff00">View</a>
+            {% else %}
+            <a style="color:#444444">View</a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr style="background-color: #333333; color: #888888">
+        <td></td>
+        <td>Responses</td>
+        <td>{% if perms.adboard.add_response %}
+             <a style="color:#00ff00" href="/adboard/response/add/">Add</a>
+            {% else %}
+            <a style="color:#444444">Add</a>
+            {% endif %}</td>
+        <td>
+            {% if perms.adboard.edit_response %}
+            <a style="color:#00ff00">Edit</a>
+            {% else %}
+            <a style="color:#444444">Edit</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if perms.adboard.delete_response %}
+            <a style="color:#00ff00">Delete</a>
+            {% else %}
+            <a style="color:#444444">Delete</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if perms.adboard.view_response %}
+            <a style="color:#00ff00">View</a>
+            {% else %}
+            <a style="color:#444444">View</a>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 Сравнительная таблица (для отладки с моделью автора):
 <table style="text-align: center; height: 36px; background-color: #bbbbbb; color: #000000">
  <tr style="background-color: #555555; color: #dddddd"><td style="width: 300px">Параметр \ пользователь</td><td style="width: 200px">As User</td><td  style="width: 200px">As Author</td></tr>

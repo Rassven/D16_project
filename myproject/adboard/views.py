@@ -97,7 +97,7 @@ class ResponseCreate(PermissionRequiredMixin, CreateView):
 
 class ResponseEdit(PermissionRequiredMixin, UpdateView):
     permission_required = ('adboard.edit_response', )
-    form_class = AdForm
+    form_class = ResponseForm
     model = Response
     template_name = 'response_edit.html'
     success_url = reverse_lazy('responses_list')

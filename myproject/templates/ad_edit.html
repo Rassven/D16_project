@@ -10,7 +10,7 @@ Ad Create (вкладка в браузере)
 {% block content %}
 <h1>Редактирование/создание Объявления</h1>
 <hr>
-{% if user.author.id %}
+{% if user.id %}
       <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -18,9 +18,9 @@ Ad Create (вкладка в браузере)
       </form>
       <hr>
       <hr>
-      <a href='/'>К списку объявлений</a>
+      <a href="{% url 'ads_list' %}">К списку объявлений</a>
 {% else %}<p style="color: red">Нет ID Автора.</p>
-{% if user.username == "Admin" %}
+{% if user.id == 1 %}
       <h2 style="color: red">Товарищ Администратор, пользуйся, пожалуйста, своей админ-панелью.</h2>{% endif %}
 {% endif %}
 {% endblock content %}

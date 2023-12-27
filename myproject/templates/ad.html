@@ -9,14 +9,13 @@
 
 {% block content %}
 <p style="color:#ff0000">Begin template ad.html</p>
-Ad = "{{ ad }}" (из __str__ н.не нужно в шаблонах)
+Ad = "{{ ad }}" (из __str__)
 <p>Test for User: name: '{{ user.username }}' user: '{{ user }}', author: '{{ ad.author }}' autor name: '{{ ad.author.username }}'</p>
-<p>Test for private fields: user.is_active '{{ user.is_active }}'</p>
-<!-- {% if ad.author.id == user.id %}
+{% if ad.author.id == user.id %}
 It's your ad!
 {% else %}
-Not your ad.
-{% endif %} -->
+<p style="color: #ff0000">Not your ad.</p>
+{% endif %}
 
 <table style="height: 36px; width: 80%; background-color: #333333; color: #888888; text-align: center;">
     <tbody>
@@ -42,16 +41,17 @@ Not your ad.
         <td>{{ ad.reply_counter }}</td>
         <td>
             {% if perms.bboard.edit_ad %}
-            <a style="color: #00ff00" href="{{ad.id}}/update/">Edit</a>
+            <a style="color: #00ff00" href="{{ad.id}}/edit/">Edit</a>
             {% endif %}
-            {% if perms.bboard.view_ad %}
-            <a style="color: #00ff00" href="{{ad.id}}">View (now)</a>
+            {% if perms.bboard.add_response and ad.author.id != user.author.id %}
+            <a style="color: #00ff00" href="/adboard/response/add/">Add response</a>
             {% endif %}
         </td>
     </tr>
     </tbody>
 </table>
-<p>Ad text: "{{ ad.text }}"</p>
+<table style="width: 80%; height: 64px; background-color: #bbbbbb"><tr>
+    <td style="color: #000000; text-align: start">Ad text: "{{ ad.text }}"</td></tr></table>
 <p>Ad author (username): "{{ ad.author.username }}"</p>
 <p>Ad user: "{{ ad.author }}"</p>
 

@@ -10,7 +10,7 @@ Response Create (вкладка в браузере)
 {% block content %}
 <h1>Редактирование/создание Отклика</h1>
 <hr>
-{% if user.author.id %}
+{% if user.id %}
       <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -18,7 +18,7 @@ Response Create (вкладка в браузере)
       </form>
       <hr>
       <hr>
-      <a href='/'>К списку ??? откликов или на само объявление?</a>
+      <a href="{% url 'responses_list' %}">К списку ??? откликов или на само объявление?</a>
 {% else %}<p style="color: red">Нет ID Автора.</p>
 {% if user.username == "Admin" %}
       <h2 style="color: red">Товарищ Администратор, пользуйся, пожалуйста, своей админ-панелью.</h2>{% endif %}

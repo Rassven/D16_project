@@ -39,7 +39,7 @@ def ad_created(instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Response)
-def ad_created(instance, created, **kwargs):
+def response_created(instance, created, **kwargs):
     if not created:
         return
     # print('Creation!')
@@ -50,7 +50,7 @@ def ad_created(instance, created, **kwargs):
         f'Кратко: {instance.text[:30]} Ознакомиться: http://127.0.0.1:8000{instance.get_absolute_url()}\n'
     )
     html_content = (
-        f'Объявление: {instance.title} ({instance.author.username}) от {instance.creation_date}<br><br>'
+        f'Объявление: {instance.ad.title} ({instance.author.username}) от {instance.creation_date}<br><br>'
         f'Кратко: {instance.text[:30]} Ознакомиться: http://127.0.0.1:8000{instance.get_absolute_url()}<br>'
     )
     # Ссылка из почты не работает (локальный сервер?)!

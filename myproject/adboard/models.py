@@ -39,7 +39,7 @@ class Author(User):
     #       return f'Неверный код! У вас осталось {self.try_counter} попыток. Будьте внимательны.'
 
     def __str__(self):
-        return f'<{self.username} ({self.email})>'
+        return f'<{self.username}>'  # ({self.email})>'
 
 
 class Ad(models.Model):
@@ -66,10 +66,14 @@ class Ad(models.Model):
         return self.view_counter
 
     def __str__(self):
-        return f'{self.author.username} {self.title[:24]}...'
+        return f'{self.title[:24]} ({self.author.username})'
 
     def get_absolute_url(self):
         return reverse('ad', args=[str(self.id)])
+
+    # def get_responses_list(self):
+    #     response_list = []
+    #     return responses_list
 
 
 class Response(models.Model):
@@ -90,3 +94,6 @@ class Response(models.Model):
 
     def __str__(self):
         return f'{self.text[:20]} ({self.author.username}) to {self.ad.title[:24]} ({self.ad.author.username})'
+
+    def get_absolute_url(self):
+        return reverse('response', args=[str(self.id)])

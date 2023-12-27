@@ -13,11 +13,11 @@ Ads (вкладка в браузере)
 <p> Alter all (num/счетчик): {{ ads|length }}  Current page: {{ page_obj.number }} info paginator {{ paginator.num_pages }}</p>
 
 <hr>
-<form action="" method="get">
+{% comment "filter" %}<form action="" method="get">
             {% csrf_token %}
             {{ filterset.form.as_p }}
             <input type="submit" value="Найти" />
-</form>
+</form>{% endcomment %}
 {% if user.is_active %}
     {% if ads %}
         <table style="height: 36px; width: 1200px; background-color: #333333; color: #888888; text-align: center;">
@@ -39,7 +39,7 @@ Ads (вкладка в браузере)
                <td>{{ ad.category }}</td>
                <td>{{ ad.creation_date|date:'Y-m-d / H:i:s' }}</td>
                <td>{{ ad.last_edit_date|date:'Y-m-d / H:i:s' }}</td>
-               <td>{{ ad.response_ad }}</td>
+               <td>{{ ad.response__ad }}</td>
                <td><a style="color: #00ff00" href="ad/{{ad.id}}">View</a></td>
            </tr>
            {% endfor %}
